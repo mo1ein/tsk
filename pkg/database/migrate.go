@@ -9,6 +9,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
+// RunMigrations applies all pending migrations from the given path.
 func RunMigrations(dsn string, migrationsPath string) error {
 	m, err := migrate.New("file://"+migrationsPath, dsn)
 	if err != nil {
@@ -23,6 +24,7 @@ func RunMigrations(dsn string, migrationsPath string) error {
 	return nil
 }
 
+// RollbackMigrations reverts the specified number of migrations.
 func RollbackMigrations(dsn string, migrationsPath string, steps int) error {
 	m, err := migrate.New("file://"+migrationsPath, dsn)
 	if err != nil {

@@ -1,3 +1,4 @@
+// Package taskrepo provides the PostgreSQL implementation of task storage.
 package taskrepo
 
 import (
@@ -10,14 +11,17 @@ import (
 	"github.com/mo1ein/tsk/internal/models"
 )
 
+// Repository implements task storage using PostgreSQL via GORM.
 type Repository struct {
 	db *gorm.DB
 }
 
+// New creates a new PostgreSQL task repository.
 func New(db *gorm.DB) *Repository {
 	return &Repository{db: db}
 }
 
+// Create inserts a new task into the database.
 func (r *Repository) Create(ctx context.Context, task *domains.Task) (*domains.Task, error) {
 	if task.Status == "" {
 		task.Status = constants.TaskStatusPending
@@ -32,6 +36,7 @@ func (r *Repository) Create(ctx context.Context, task *domains.Task) (*domains.T
 	return &result, nil
 }
 
+// GetByID retrieves a task by its ID. Returns ErrTaskNotFound if not found.
 func (r *Repository) GetByID(ctx context.Context, id int64) (*domains.Task, error) {
 	var m models.Task
 	if err := r.db.WithContext(ctx).First(&m, id).Error; err != nil {
@@ -45,6 +50,7 @@ func (r *Repository) GetByID(ctx context.Context, id int64) (*domains.Task, erro
 	return &result, nil
 }
 
+// List returns tasks matching the filter with pagination.
 func (r *Repository) List(ctx context.Context, filter domains.ListFilter) ([]domains.Task, int64, error) {
 	if filter.Page < 1 {
 		filter.Page = 1
@@ -81,6 +87,7 @@ func (r *Repository) List(ctx context.Context, filter domains.ListFilter) ([]dom
 	return tasks, total, nil
 }
 
+// Update saves changes to an existing task. Returns ErrTaskNotFound if the task does not exist.
 func (r *Repository) Update(ctx context.Context, task *domains.Task) (*domains.Task, error) {
 	m := models.TaskFromDomain(*task)
 	result := r.db.WithContext(ctx).Save(&m)
@@ -95,6 +102,7 @@ func (r *Repository) Update(ctx context.Context, task *domains.Task) (*domains.T
 	return &updated, nil
 }
 
+// Delete removes a task by ID. Returns ErrTaskNotFound if the task does not exist.
 func (r *Repository) Delete(ctx context.Context, id int64) error {
 	result := r.db.WithContext(ctx).Delete(&models.Task{}, id)
 	if result.Error != nil {

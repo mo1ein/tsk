@@ -1,3 +1,4 @@
+// Package middleware provides HTTP middleware for the Gin router.
 package middleware
 
 import (
@@ -28,6 +29,7 @@ var (
 	)
 )
 
+// MetricsMiddleware records HTTP request count and latency for Prometheus.
 func MetricsMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()

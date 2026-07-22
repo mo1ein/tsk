@@ -1,3 +1,4 @@
+// Package handler implements HTTP handlers for the task API.
 package handler
 
 import (
@@ -11,6 +12,7 @@ import (
 	"github.com/mo1ein/tsk/internal/domains"
 )
 
+// TaskService defines the interface for task business operations.
 type TaskService interface {
 	Create(ctx context.Context, task *domains.Task) (*domains.Task, error)
 	GetByID(ctx context.Context, id int64) (*domains.Task, error)
@@ -19,25 +21,30 @@ type TaskService interface {
 	Delete(ctx context.Context, id int64) error
 }
 
+// TaskHandler handles HTTP requests for task operations.
 type TaskHandler struct {
 	svc TaskService
 }
 
+// NewTaskHandler creates a new task HTTP handler.
 func NewTaskHandler(svc TaskService) *TaskHandler {
 	return &TaskHandler{svc: svc}
 }
 
+// CreateTaskRequest is the request body for creating a task.
 type CreateTaskRequest struct {
 	Title    string `json:"title" binding:"required" example:"Buy groceries"`
 	Assignee string `json:"assignee" example:"alice"`
 }
 
+// UpdateTaskRequest is the request body for updating a task.
 type UpdateTaskRequest struct {
 	Title    *string `json:"title,omitempty" example:"Buy groceries"`
 	Assignee *string `json:"assignee,omitempty" example:"alice"`
 	Status   *string `json:"status,omitempty" example:"done"`
 }
 
+// TaskResponse is the JSON response for a task.
 type TaskResponse struct {
 	ID        int64                `json:"id" example:"1"`
 	Title     string               `json:"title" example:"Buy groceries"`

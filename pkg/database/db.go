@@ -1,3 +1,4 @@
+// Package database provides PostgreSQL connection and migration utilities.
 package database
 
 import (
@@ -9,15 +10,17 @@ import (
 	"gorm.io/gorm/logger"
 )
 
+// Config holds PostgreSQL connection configuration.
 type Config struct {
-	Host     string
-	Port     int
-	User     string
-	Password string
-	DBName   string
-	SSLMode  string
+	Host     string // Database host.
+	Port     int    // Database port.
+	User     string // Database user.
+	Password string // Database password.
+	DBName   string // Database name.
+	SSLMode  string // SSL mode.
 }
 
+// Connect opens a connection to PostgreSQL with connection pooling configured.
 func Connect(cfg Config) (*gorm.DB, error) {
 	dsn := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",

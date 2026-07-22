@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Load reads configuration from environment variables and .env files.
+// It panics if required environment variables are missing.
 func Load() (*Config, error) {
 	viper.SetConfigType("env")
 	viper.AddConfigPath(".")

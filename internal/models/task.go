@@ -1,3 +1,4 @@
+// Package models defines database models and domain-to-model conversion.
 package models
 
 import (
@@ -8,6 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Task is the GORM model for the tasks table.
 type Task struct {
 	ID        int64                `gorm:"column:id"`
 	Title     string               `gorm:"column:title"`
@@ -18,6 +20,7 @@ type Task struct {
 	DeletedAt gorm.DeletedAt       `gorm:"column:deleted_at;index"`
 }
 
+// ToDomain converts the database model to a domain Task.
 func (t Task) ToDomain() domains.Task {
 	return domains.Task{
 		ID:        t.ID,
@@ -29,6 +32,7 @@ func (t Task) ToDomain() domains.Task {
 	}
 }
 
+// TaskFromDomain converts a domain Task to the database model.
 func TaskFromDomain(d domains.Task) Task {
 	return Task{
 		ID:        d.ID,
