@@ -112,8 +112,9 @@ CMD ?= $(strip $(wordlist 2,$(words $(POS_ARGS)),$(POS_ARGS)))
 # Targets
 # -------------------------
 .PHONY: help env init up build-up build-no-cache status down purge logs \
-		redis-shell psql-shell lint test test-coverage build-clean build-arm \
-		build-linux sh exec clean restart ps version health config-info seed
+		redis-shell psql-shell lint test test-coverage test-integration build-clean build-arm \
+		build-linux sh exec clean restart ps version health config-info seed \
+		doc doc-serve
 
 help: ## Show this help
 	@echo -e "$(COLOR_BOLD)$(COLOR_CYAN)$(ICON_INFO) Available targets:$(COLOR_RESET)\n"
@@ -246,3 +247,14 @@ seed: ## Seed database with test data
 	$(call print_header,"Seeding database...")
 	psql -h localhost -p $(DB_PORT) -U $(DB_USER) -d $(DB_NAME) -f seed/tasks.sql
 	$(call print_success,"Database seeded successfully")
+
+doc: ## Show go doc for all packages
+	$(call print_header,"Go documentation...")
+	@for pkg in $$(go list ./... 2>/dev/null); do \
+		echo -e "\n$(COLOR_BOLD)$$pkg$(COLOR_RESET)"; \
+		go doc -all "$$pkg" 2>/dev/null || echo "  (no doc)"; \
+	done
+
+doc-serve: ## Start local godoc server on :6060
+	$(call print_running,"Starting godoc server on http://localhost:6060")
+	@godoc -http=:6060
