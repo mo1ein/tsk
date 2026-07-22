@@ -20,16 +20,38 @@ echo "Created 20 tasks"
 
 echo ""
 echo "2. Listing tasks (benchmark)..."
-ab -n $REQUESTS -c $CONCURRENT "$BASE_URL/tasks"
+start=$(date +%s%N)
+for i in $(seq 1 $REQUESTS); do
+  curl -s "$BASE_URL/tasks" > /dev/null &
+  if (( i % $CONCURRENT == 0 )); then
+    wait
+  fi
+done
+wait
+end=$(date +%s%N)
+elapsed=$(( (end - start) / 1000000 ))
+rps=$(echo "scale=2; $REQUESTS * 1000 / $elapsed" | bc 2>/dev/null || echo "N/A")
+echo "Completed $REQUESTS requests in ${elapsed}ms (${rps} req/s)"
 
 echo ""
 echo "3. Getting single task (benchmark)..."
-ab -n $REQUESTS -c $CONCURRENT "$BASE_URL/tasks/1"
+start=$(date +%s%N)
+for i in $(seq 1 $REQUESTS); do
+  curl -s "$BASE_URL/tasks/1" > /dev/null &
+  if (( i % $CONCURRENT == 0 )); then
+    wait
+  fi
+done
+wait
+end=$(date +%s%N)
+elapsed=$(( (end - start) / 1000000 ))
+rps=$(echo "scale=2; $REQUESTS * 1000 / $elapsed" | bc 2>/dev/null || echo "N/A")
+echo "Completed $REQUESTS requests in ${elapsed}ms (${rps} req/s)"
 
 echo ""
 echo "4. pprof CPU profile (5 seconds)..."
 curl -s "http://localhost:8080/debug/pprof/profile?seconds=5" > /tmp/cpu.prof 2>/dev/null
-if [ -f /tmp/cpu.prof ]; then
+if [ -f /tmp/cpu.prof ] && [ -s /tmp/cpu.prof ]; then
   echo "CPU profile saved to /tmp/cpu.prof"
   echo "Analyze with: go tool pprof -http=:8081 /tmp/cpu.prof"
 else

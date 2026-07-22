@@ -27,8 +27,6 @@ flowchart TB
 
 ## Quick Start
 
-### Using Docker Compose (Recommended)
-
 ```bash
 # Clone the repository
 git clone https://github.com/graph/tsk.git
@@ -45,6 +43,7 @@ make status
 ```
 
 The API will be available at `http://localhost:8000`.
+
 The swagger is at the `http://0.0.0.0:8000/swagger/index.html`
 
 ### Local Development
@@ -188,17 +187,14 @@ make test
 make test-integration
 
 # Run tests with coverage
-go test ./... -short -coverprofile=coverage.out && go tool cover -func=coverage.out
+make test-coverage
 ```
 
 ## Load Testing
 
 ```bash
-# Run benchmark script
+# Run benchmark script (uses curl, no extra tools needed)
 ./scripts/benchmark.sh
-
-# Or use Apache Bench directly
-ab -n 1000 -c 50 http://localhost:8000/tasks
 ```
 
 ## Monitoring
