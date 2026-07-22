@@ -49,11 +49,15 @@ rps=$(echo "scale=2; $REQUESTS * 1000 / $elapsed" | bc 2>/dev/null || echo "N/A"
 echo "Completed $REQUESTS requests in ${elapsed}ms (${rps} req/s)"
 
 echo ""
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+PROFILE_PATH="$PROJECT_DIR/cpu.prof"
+
 echo "4. pprof CPU profile (5 seconds)..."
-curl -s "http://localhost:8000/debug/pprof/profile?seconds=5" > /tmp/cpu.prof 2>/dev/null
-if [ -f /tmp/cpu.prof ] && [ -s /tmp/cpu.prof ]; then
-  echo "CPU profile saved to /tmp/cpu.prof"
-  echo "Analyze with: go tool pprof -http=:8081 /tmp/cpu.prof"
+curl -s "http://localhost:8000/debug/pprof/profile?seconds=5" > "$PROFILE_PATH" 2>/dev/null
+if [ -f "$PROFILE_PATH" ] && [ -s "$PROFILE_PATH" ]; then
+  echo "CPU profile saved to $PROFILE_PATH"
+  echo "Analyze with: go tool pprof -http=:8081 $PROFILE_PATH"
 else
   echo "pprof endpoint not available (enable with _ import net/http/pprof)"
 fi
