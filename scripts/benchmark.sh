@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_URL="http://localhost:8080"
+BASE_URL="http://localhost:8000"
 CONCURRENT=10
 REQUESTS=100
 
@@ -50,7 +50,7 @@ echo "Completed $REQUESTS requests in ${elapsed}ms (${rps} req/s)"
 
 echo ""
 echo "4. pprof CPU profile (5 seconds)..."
-curl -s "http://localhost:8080/debug/pprof/profile?seconds=5" > /tmp/cpu.prof 2>/dev/null
+curl -s "http://localhost:8000/debug/pprof/profile?seconds=5" > /tmp/cpu.prof 2>/dev/null
 if [ -f /tmp/cpu.prof ] && [ -s /tmp/cpu.prof ]; then
   echo "CPU profile saved to /tmp/cpu.prof"
   echo "Analyze with: go tool pprof -http=:8081 /tmp/cpu.prof"
