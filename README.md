@@ -29,7 +29,7 @@ flowchart TB
 
 ```bash
 # Clone the repository
-git clone https://github.com/graph/tsk.git
+git clone https://github.com/mo1ein/tsk.git
 cd tsk
 
 # Create .env from example (if not exists)
