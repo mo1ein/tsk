@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/domains"
 	"github.com/redis/go-redis/v9"
 )
 

@@ -5,9 +5,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/graph/task-manager/internal/constants"
-	"github.com/graph/task-manager/internal/domains"
-	"github.com/graph/task-manager/internal/models"
+	"github.com/mo1ein/tsk/internal/constants"
+	"github.com/mo1ein/tsk/internal/domains"
+	"github.com/mo1ein/tsk/internal/models"
 )
 
 type Repository struct {

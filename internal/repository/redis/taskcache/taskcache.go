@@ -8,7 +8,7 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/domains"
 )
 
 const taskKey = "task:%d"

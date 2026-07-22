@@ -1,4 +1,4 @@
-module github.com/graph/task-manager
+module github.com/mo1ein/tsk
 
 go 1.26.4
 

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/graph/task-manager/cmd"
+import "github.com/mo1ein/tsk/cmd"
 
 func main() {
 	cmd.Execute()

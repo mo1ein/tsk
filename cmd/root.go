@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/graph/task-manager/internal/config"
+	"github.com/mo1ein/tsk/internal/config"
 )
 
 var cfg *config.Config

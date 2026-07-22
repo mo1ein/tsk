@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/graph/task-manager/internal/constants"
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/constants"
+	"github.com/mo1ein/tsk/internal/domains"
 )
 
 func TestToDomain(t *testing.T) {

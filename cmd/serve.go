@@ -8,12 +8,12 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/cobra"
 
-	"github.com/graph/task-manager/docs"
-	"github.com/graph/task-manager/internal/handler"
-	"github.com/graph/task-manager/internal/repository/postgres/taskrepo"
-	"github.com/graph/task-manager/internal/repository/redis/taskcache"
-	"github.com/graph/task-manager/internal/service/taskservice"
-	"github.com/graph/task-manager/pkg/database"
+	"github.com/mo1ein/tsk/docs"
+	"github.com/mo1ein/tsk/internal/handler"
+	"github.com/mo1ein/tsk/internal/repository/postgres/taskrepo"
+	"github.com/mo1ein/tsk/internal/repository/redis/taskcache"
+	"github.com/mo1ein/tsk/internal/service/taskservice"
+	"github.com/mo1ein/tsk/pkg/database"
 )
 
 var serveCmd = &cobra.Command{

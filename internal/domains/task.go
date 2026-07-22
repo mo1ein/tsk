@@ -3,7 +3,7 @@ package domains
 import (
 	"time"
 
-	"github.com/graph/task-manager/internal/constants"
+	"github.com/mo1ein/tsk/internal/constants"
 )
 
 type Task struct {

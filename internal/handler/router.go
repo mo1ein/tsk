@@ -5,8 +5,8 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	"github.com/graph/task-manager/internal/metrics"
-	"github.com/graph/task-manager/internal/middleware"
+	"github.com/mo1ein/tsk/internal/metrics"
+	"github.com/mo1ein/tsk/internal/middleware"
 )
 
 func SetupRouter(handler *TaskHandler) *gin.Engine {

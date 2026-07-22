@@ -11,8 +11,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/graph/task-manager/internal/constants"
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/constants"
+	"github.com/mo1ein/tsk/internal/domains"
 )
 
 func setupTestDB(t *testing.T) *gorm.DB {

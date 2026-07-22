@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/graph/task-manager/internal/constants"
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/constants"
+	"github.com/mo1ein/tsk/internal/domains"
 )
 
 type mockTaskService struct {

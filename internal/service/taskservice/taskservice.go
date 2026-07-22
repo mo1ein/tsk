@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/graph/task-manager/internal/domains"
+	"github.com/mo1ein/tsk/internal/domains"
 )
 
 type taskRepository interface {
