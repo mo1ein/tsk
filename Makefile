@@ -201,7 +201,7 @@ test-coverage: ## Run tests with coverage report
 
 test-integration: ## Run integration tests (requires running postgres)
 	$(call print_header,"Running integration tests...")
-	go test ./... -v -run "TestPostgres"
+	go test ./internal/repository/postgres/... ./pkg/database/... -v
 	$(call print_success,"Integration tests passed")
 
 build-clean: ## Remove build directory

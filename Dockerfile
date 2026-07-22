@@ -18,6 +18,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 
 COPY --from=builder /task-manager .
+COPY --from=builder /app/migrations ./migrations
 COPY .env.example .env
 
 EXPOSE 8080

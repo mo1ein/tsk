@@ -137,16 +137,58 @@ curl http://localhost:8000/health
 
 ## Testing
 
+### Unit Tests
+
 ```bash
-# Run all tests
-go test ./... -v
+# Run all unit tests
+go test ./... -short -v
 
-# Run with coverage
-go test ./... -coverprofile=coverage.out
-go tool cover -html=coverage.out
+# Run tests for a specific package
+go test ./internal/service/taskservice/ -v
+go test ./internal/handler/ -v
+go test ./internal/config/ -v
 
-# Run specific test
-go test ./internal/repository/ -v -run TestMockTaskRepository
+# Run a specific test by name
+go test ./internal/handler/ -v -run TestCreateTask
+```
+
+### Integration Tests
+
+Integration tests require running PostgreSQL and Redis (via `make up` or `docker compose up -d`).
+
+```bash
+# Run integration tests (PostgreSQL + Redis required)
+make test-integration
+
+# Or run directly
+go test ./internal/repository/postgres/... ./pkg/database/... -v
+```
+
+### Coverage
+
+```bash
+# Generate coverage report
+go test ./... -short -coverprofile=coverage.out
+
+# View coverage summary
+go tool cover -func=coverage.out
+
+# Open coverage in browser (HTML)
+go tool cover -html=coverage.out -o coverage.html
+open coverage.html
+```
+
+### All Tests (via Make)
+
+```bash
+# Run all unit tests
+make test
+
+# Run integration tests
+make test-integration
+
+# Run tests with coverage
+go test ./... -short -coverprofile=coverage.out && go tool cover -func=coverage.out
 ```
 
 ## Load Testing

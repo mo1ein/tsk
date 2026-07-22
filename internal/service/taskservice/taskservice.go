@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/graph/task-manager/internal/domains"
-	"github.com/graph/task-manager/internal/repository/redis/taskcache"
 )
 
 type taskRepository interface {
@@ -16,12 +15,21 @@ type taskRepository interface {
 	Delete(ctx context.Context, id int64) error
 }
 
-type Service struct {
-	taskRepo taskRepository
-	cache    taskcache.Repository
+type cacheRepository interface {
+	Get(ctx context.Context, id int64) (*domains.Task, error)
+	Set(ctx context.Context, task *domains.Task) error
+	Delete(ctx context.Context, id int64) error
+	GetList(ctx context.Context, filterKey string) ([]domains.Task, int64, error)
+	SetList(ctx context.Context, filterKey string, tasks []domains.Task, total int64) error
+	InvalidateList(ctx context.Context) error
 }
 
-func New(taskRepo taskRepository, cache taskcache.Repository) *Service {
+type Service struct {
+	taskRepo taskRepository
+	cache    cacheRepository
+}
+
+func New(taskRepo taskRepository, cache cacheRepository) *Service {
 	return &Service{
 		taskRepo: taskRepo,
 		cache:    cache,
