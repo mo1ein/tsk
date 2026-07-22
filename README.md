@@ -42,10 +42,9 @@ make build-up
 make status
 ```
 
-The API will be available at `http://localhost:8000`.
+The API will be available at [http://localhost:8000](http://localhost:8000).
 
-The swagger is at the `http://localhost:8000/swagger/index.html`
-The swagger is at the [http://0.0.0.0:8000/swagger/index.html](`http://0.0.0.0:8000/swagger/index.html`)].
+The swagger: [http://localhost:8000/swagger/index.html](http://localhost:8000/swagger/index.html).
 
 
 ### Local Development
